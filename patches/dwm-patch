@@ -1,0 +1,72 @@
+#!/bin/bash
+
+apply_patch(){
+    patchfile="$1"
+    patchname="$(echo $patchfile | cut -d- -f2)"
+    #echo "Applying $patchname"
+    #return
+    git branch patch
+    git checkout patch
+
+    git apply "$patchfile"
+    if [ $?  -ne 0 ]; then
+        git apply "$patchfile" -v --reject "$patchfile"
+        while true
+        do
+            read -p "Patch failed, applying it manually - check apply.patch! Are you ready? y/m/n" ymn
+            case $ymn in
+                [Yy]* ) break ;;
+                [Mm]* ) make ; rm *.o *.rej config.h dwm  -v ; continue ;;
+                [Nn]* ) return ;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+
+    git add *
+    git commit -m "$patchname"
+    git checkout patched
+    git rebase patch
+    rebaseok=$?
+    echo "Rebase result: " $rebaseok
+    if [[ $rebaseok -ne 0 ]]
+    then
+        while ! git rebase --continue
+        do
+            read -p "Did you fix problem manually [yes/no/make]? " ymn
+            case $ymn in
+                [Yy]* ) git add * && continue ;;
+                [Mm]* ) make ; rm *.o config.h dwm -v ; continue ;;
+                [Nn]* ) break ;;
+                * ) echo "Please answer yes or no.";;
+            esac
+        done
+    fi
+    git branch -D patch
+    git checkout master
+}
+
+
+#git clone https://git.suckless.org/dwm
+
+read -p "Clean up current dwm [yes/no]? " yn
+case $yn in
+    [Yy]* ) rm -rf dwm ; cp -r dwm.clean dwm ;;
+    [Nn]* ) break ;;
+    * ) echo "Please answer yes or no.";;
+esac
+
+cd ..
+git checkout master
+git branch patched
+for patchfile in patches/*.diff; do
+    read -p "Do you wish to apply $patchfile? " yn
+    case $yn in
+        [Yy]* ) apply_patch "$patchfile" ;;
+        [Nn]* ) continue;;
+        * ) echo "Please answer yes or no.";;
+    esac
+    echo "---------------------------------------------------------------"
+done
+git checkout patched
+cd patches
