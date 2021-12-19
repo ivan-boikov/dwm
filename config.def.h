@@ -3,24 +3,24 @@
 #define TERMINAL "st"
 #define TERMCLASS "St"
 /* appearance */
-static unsigned int borderpx  = 3;        /* border pixel of windows */
+static unsigned int borderpx  = 5;        /* border pixel of windows */
 static unsigned int snap      = 32;       /* snap pixel */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
-static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
+static unsigned int gappih    = 20;       /* horiz inner gap between windows */
+static unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int focusonwheel       = 0;
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "Liberation Mono:size=10" };
+static const char dmenufont[]       = "Liberation Mono:size=10";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
@@ -54,14 +54,14 @@ static const Rule rules[] = {
     { "Steam",              NULL,       ".* - Chat",       	1 << 4,   0,      1,          0,          -1 },
 
     { "Gimp",               NULL,       NULL,       	    1 << 4,   0,      0,          0,          -1 },
-    { "ncmpcpp",            NULL,       NULL,              	1 << 5,   0,      0,          1,          -1 },
+    { "musicplayer",        NULL,       NULL,              	1 << 5,   0,      0,          0,          -1 },
     { "Pulseeffects",       NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
     { "mpv",                NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
     { "vlc",                NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
 	{ "Virt-manager",       NULL,       NULL,       	    1 << 6,   0,      0,          0,          -1 },
 	{ "Firefox",            NULL,       NULL,       	    1 << 7,   0,      0,          0,          -1 },
 	{ "Chromium",           NULL,       NULL,       	    1 << 7,   0,      0,          0,          -1 },
-	{ "protonmail-bridge",  NULL,       NULL,       	    1 << 8,   0,      0,          0,          -1 },
+	{ "ProtonMail Bridge",  NULL,       NULL,       	    1 << 8,   0,      0,          0,          -1 },
 	{ "thunderbird",        NULL,       NULL,       	    1 << 8,   0,      0,          0,          -1 },
 	{ "Signal",             NULL,       NULL,       	    1 << 9,   0,      0,          0,          -1 },
 	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 9,   0,      0,          0,          -1 },
@@ -118,7 +118,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 /*
@@ -126,11 +126,11 @@ static const char *termcmd[]  = { "st", NULL };
  */
 ResourcePref resources[] = {
     { "color0",		    STRING,	&normbordercolor },
-    { "color1",		    STRING,	&selbordercolor },
+    { "color4",		    STRING,	&selbordercolor },
     { "color0",		    STRING,	&normbgcolor },
-    { "color7",		    STRING,	&normfgcolor },
-    { "color1",		    STRING,	&selbgcolor },
-    { "color7",		    STRING,	&selfgcolor },
+    { "color4",		    STRING,	&normfgcolor },
+    { "color4",		    STRING,	&selbgcolor },
+    { "color0",		    STRING,	&selfgcolor },
     { "borderpx",       INTEGER, &borderpx },
     { "snap",          	INTEGER, &snap },
     { "showbar",        INTEGER, &showbar },
@@ -246,6 +246,8 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioPlay,		spawn,		SHCMD("playerctl play-pause ; mpc toggle") },
 	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("playerctl stop ; mpc stop") },
 
+    { MODKEY,			    XK_m,		spawn,		SHCMD(TERMINAL " -c musicplayer -e ncmpcpp") },
+    { MODKEY,			    XK_e,		spawn,		SHCMD("pkill pulseeffects ; pulseeffects") },
 
 
     { MODKEY,			    XK_r,		spawn,		SHCMD(TERMINAL " -e nnn") },
@@ -263,8 +265,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("drecord kill") },
 	{ MODKEY,			XK_Delete,	spawn,		SHCMD("drecord kill") },
 
-
+    // system utilities
     { MODKEY|ShiftMask, XK_q,		spawn,		SHCMD("sysact") },
+    { MODKEY, XK_w,		spawn,		SHCMD(TERMINAL " -e nmtui") },
+    { MODKEY, XK_e,		spawn,		SHCMD(TERMINAL " -c filebrowser -e nnn -d") },
 
     { 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 15") },
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 15") },
