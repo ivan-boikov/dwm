@@ -44,7 +44,8 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
     { TERMCLASS,            NULL,       NULL,               0,        0,      1,          0,        -1 },
 	{ NULL,                 NULL,       "Event Tester",     0,        0,      0,          1,        -1 }, /* xev */
-	{ NULL,                 NULL,       "vim-latex-live-preview",     0,        0,      0,          1,        -1 },
+    //{ NULL,                 NULL,       "vim-latex-live-preview",     0,        0,      0,          1,        -1 },
+    { "Zathura",                 NULL,       NULL,     0,        0,      0,          1,        -1 },
 
     { "gksqt",              NULL,       NULL,       	    1 << 3,   0,      1,          0,          -1 },
 
@@ -56,7 +57,7 @@ static const Rule rules[] = {
     { "Gimp",               NULL,       NULL,       	    1 << 4,   0,      0,          0,          -1 },
     { "musicplayer",        NULL,       NULL,              	1 << 5,   0,      0,          0,          -1 },
     { "Pulseeffects",       NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
-    { "mpv",                NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
+//    { "mpv",                NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
     { "vlc",                NULL,       NULL,       	    1 << 5,   0,      0,          0,          -1 },
 	{ "Virt-manager",       NULL,       NULL,       	    1 << 6,   0,      0,          0,          -1 },
 	{ "Firefox",            NULL,       NULL,       	    1 << 7,   0,      0,          0,          -1 },
@@ -247,17 +248,18 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioStop,		spawn,		SHCMD("playerctl stop ; mpc stop") },
 
     { MODKEY,			    XK_m,		spawn,		SHCMD(TERMINAL " -c musicplayer -e ncmpcpp") },
-    { MODKEY,			    XK_e,		spawn,		SHCMD("pkill pulseeffects ; pulseeffects") },
+    { MODKEY|ShiftMask,	    XK_e,		spawn,		SHCMD("pkill pulseeffects ; pulseeffects") },
 
 
     { MODKEY,			    XK_r,		spawn,		SHCMD(TERMINAL " -e nnn") },
 	{ MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD(TERMINAL " -e htop") },
-    { MODKEY|ShiftMask,		XK_d,		spawn,		SHCMD("dpass") },
 
-    { MODKEY,			XK_F1,		spawn,		SHCMD("displayselect") },
+    { MODKEY,			XK_F1,		spawn,		SHCMD("dpass") },
     { MODKEY,			XK_F2,		spawn,		SHCMD("dmnt") },
-	{ MODKEY,			XK_F3,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
-	{ MODKEY,			XK_F4,		spawn,		SHCMD("remaps & notify-send \\\"⌨️ Keyboard remapping...\\\" \\\"Re-running keyboard defaults for any newly plugged-in keyboards.\\\"") },
+	{ MODKEY,			XK_F3,		spawn,		SHCMD("remaps & notify-send \\\"⌨️ Keyboard remapping...\\\" \\\"Re-running keyboard defaults for any newly plugged-in keyboards.\\\"") },
+	{ MODKEY,			XK_F5,		spawn,		SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+    { MODKEY,			XK_F8,		spawn,		SHCMD("displayselect") },
+    { MODKEY,			XK_F9,		spawn,		SHCMD("chsink") },
 
     { 0,				XK_Print,	spawn,		SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
 	{ ShiftMask,			XK_Print,	spawn,		SHCMD("maimpick") },
