@@ -272,8 +272,8 @@ static Key keys[] = {
     { MODKEY, XK_w,		spawn,		SHCMD(TERMINAL " -e nmtui") },
     { MODKEY, XK_e,		spawn,		SHCMD(TERMINAL " -c filebrowser -e nnn -d") },
 
-    { 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 10 ; brightnessctl +10%") },
-	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 10 ; brightnessctl -10%") },
+    { 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 10 ; brightnessctl set 10%+") },
+	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 10 ; brightnessctl set 10%-") },
 
 };
 
