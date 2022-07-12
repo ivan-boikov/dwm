@@ -19,7 +19,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int focusonwheel       = 0;
-static const char *fonts[]          = { "Liberation Mono:size=9", "DejaVu Sans Mono", "Font Awesome 6 Free Solid:size=9" };
+static const char *fonts[]          = { "Liberation Mono:size=9", "DejaVu Sans Mono:size=9", "Font Awesome 6 Free Solid:size=9", "Mona Gothic Wide:size=11" };
 static const char dmenufont[]       = "Liberation Mono:size=9";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -34,7 +34,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "1", "2", "3", "", "", "", "", ""};
+static const char *tags[] = { "", "", "1", "2", "3", "", "VM", "", "", ""};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -118,12 +118,12 @@ static const char *termcmd[]  = { "st", NULL };
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-    { "color0",                 STRING, 	&normbordercolor },
-    { "color4",                 STRING, 	&selbordercolor },
-    { "color0",                 STRING, 	&normbgcolor },
-    { "color4",                 STRING, 	&normfgcolor },
-    { "color4",                 STRING, 	&selbgcolor },
-    { "color0",                 STRING, 	&selfgcolor },
+    { "background",                 STRING, 	&normbordercolor },
+    { "foreground",                 STRING, 	&selbordercolor },
+    { "background",                 STRING, 	&normbgcolor },
+    { "foreground",                 STRING, 	&normfgcolor },
+    { "foreground",                 STRING, 	&selbgcolor },
+    { "background",                 STRING, 	&selfgcolor },
     { "borderpx",               INTEGER,        &borderpx },
     { "snap",                   INTEGER,        &snap },
     { "showbar",                INTEGER,        &showbar },
