@@ -19,7 +19,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int focusonwheel       = 0;
-static const char *fonts[]          = { "DejaVu Sans Mono:size=9", "Liberation Mono:size=9", "Font Awesome 6 Free Solid:size=9", "Mona Gothic Wide:size=11" };
+static const char *fonts[]          = { "Liberation Mono:size=9", "DejaVu Sans Mono:size=9", "Font Awesome 6 Free Solid:size=9", "Mona Gothic Wide:size=11" };
 static const char dmenufont[]       = "Liberation Mono:size=9";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
