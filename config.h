@@ -272,6 +272,8 @@ static Key keys[] = {
     { MODKEY,	        XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord") },
     { MODKEY|ShiftMask,	XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord kill") },
     { MODKEY,		XK_Delete, spawn, SHCMD("$HOME/.local/bin/drecord kill") },
+    { MODKEY,		XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark") },
+    { MODKEY|ControlMask,	XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark add $(xclip -o)") },
 
 
     // system utilities
