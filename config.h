@@ -280,9 +280,9 @@ static Key keys[] = {
     // system utilities
     { MODKEY, XK_s, spawn, SHCMD("$HOME/.local/bin/sysact") },
     { MODKEY, XK_r, spawn, SHCMD(TERMINAL " -e htop") },
-    { MODKEY, XK_e, spawn, SHCMD(TERMINAL " -c filebrowser -e nnn -d") },
+    { MODKEY, XK_e, spawn, SHCMD(TERMINAL " -c filebrowser -e nnn -deAU") },
     { MODKEY, XK_w, spawn, SHCMD(TERMINAL " -e nmtui") },
-    { MODKEY, XK_m, spawn, SHCMD(TERMINAL " -c email -e neomutt") },
+    { MODKEY, XK_m, spawn, SHCMD("$HOME/.local/bin/emailclient") },
     { MODKEY, XK_n, spawn, SHCMD(TERMINAL " -c musicplayer -e ncmpcpp") },
     //{ MODKEY, XK_m, spawn, SHCMD("if [ -z $(pidof mpd) ]; then notify-send 'Starting mpd'; mpd &; fi; st -c musicplayer -e ncmpcpp") },
     { MODKEY|ShiftMask, XK_n, spawn, SHCMD(TERMINAL " -c mixer -e ncpamixer") },
