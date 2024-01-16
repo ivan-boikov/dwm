@@ -3,30 +3,31 @@
 #define TERMINAL "st"
 #define TERMCLASS "St"
 /* appearance */
-static unsigned int borderpx  = 4;        /* border pixel of windows */
-static unsigned int snap      = 32;       /* snap pixel */
-static int showbar            = 1;        /* 0 means no bar */
-static int topbar             = 1;        /* 0 means bottom bar */
-static unsigned int gappih    = 10;       /* horiz inner gap between windows */
-static unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
-static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
-static int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
-static const int focusonwheel       = 0;
-static const char *fonts[]          = { "Liberation Mono:size=9", "DejaVu Sans Mono:size=9", "Font Awesome 8 Free Solid:size=9", "Font Awesome 7 Free Solid:size=9", "Font Awesome 6 Free Solid:size=9", "Font Awesome 5 Free Solid:size=9", "Mona Gothic Wide:size=11" };
-static const char dmenufont[]       = "Liberation Mono:size=9";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#222222";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#e1a15b";
-static char selbordercolor[]        = "#e1a15b";
-static char selbgcolor[]            = "#e1a15b";
+static unsigned int borderpx = 4; /* border pixel of windows */
+static unsigned int snap = 32; /* snap pixel */
+static int showbar = 1; /* 0 means no bar */
+static int topbar = 1;  /* 0 means bottom bar */
+static unsigned int gappih = 10; /* horiz inner gap between windows */
+static unsigned int gappiv = 10; /* vert inner gap between windows */
+static unsigned int gappoh = 10; /* horiz outer gap between windows and screen edge */
+static unsigned int gappov = 10; /* vert outer gap between windows and screen edge */
+static int smartgaps = 0; /* 1 means no outer gap when there is only one window */
+static const unsigned int systraypinning = 0; /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft  = 0; /* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing = 2; /* systray spacing */
+static const int systraypinningfailfirst = 1; /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray = 1; /* 0 means no systray */
+static int swallowfloating = 0; /* 1 means swallow floating windows by default */
+static const int focusonwheel = 0;
+//static const char *fonts[] = { "Liberation Mono:size=9", "DejaVu Sans Mono:size=9", "Font Awesome 8 Free Solid:size=9", "Font Awesome 7 Free Solid:size=9", "Font Awesome 6 Free Solid:size=9", "Font Awesome 5 Free Solid:size=9", "Mona Gothic Wide:size=11" };
+static const char *fonts[] = { "Liberation Mono:pixelsize=12", "Font Awesome 8 Free Solid:pixelsize=11", "Font Awesome 7 Free Solid:pixelsize=11", "Font Awesome 6 Free Solid:pixelsize=11", "Font Awesome 5 Free Solid:pixelsize=11", "Mona Gothic Wide:pixelsize=11" };
+static const char dmenufont[]   = "Liberation Mono:size=9";
+static char normbgcolor[]       = "#222222";
+static char normbordercolor[]   = "#222222";
+static char normfgcolor[]       = "#bbbbbb";
+static char selfgcolor[]        = "#e1a15b";
+static char selbordercolor[]    = "#e1a15b";
+static char selbgcolor[]        = "#e1a15b";
 static char *colors[][3] = {
     /*               fg           bg           border   */
     [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
@@ -51,29 +52,21 @@ static const Rule rules[] = {
     { TERMCLASS,            NULL,       NULL,                0, 0, 1, 0, -1 },
     { NULL,                 NULL,       "Event Tester",      0, 0, 0, 1, -1 }, /* xev */
     { "Zathura",            NULL,       NULL,                0, 0, 0, 1, -1 },
+    { "gksqt",              NULL,       NULL,           1 << 3, 0, 1, 0, -1 },
 
-    //{ "filebrowser",        NULL,       NULL,       	1 << 1, 0, 1, 0, -1 },
-    { "gksqt",              NULL,       NULL,       	1 << 3, 0, 1, 0, -1 },
-
-    { "Steam",              NULL,       NULL,       	1 << 4, 0, 0, 0, -1 },
+    { "Steam",              NULL,       NULL,           1 << 4, 0, 0, 0, -1 },
     { "Steam",              NULL,       "Friends",      1 << 4, 0, 1, 0, -1 },
     { "Steam",              NULL,       "Steam - News", 1 << 4, 0, 1, 0, -1 },
     { "Steam",              NULL,       ".* - Chat",    1 << 4, 0, 1, 0, -1 },
 
-    { "Gimp",               NULL,       NULL,       	1 << 4, 0, 0, 0, -1 },
-    //{ "musicplayer",        NULL,       NULL,           1 << 5, 0, 0, 0, -1 },
-    { "Pulseeffects",       NULL,       NULL,       	1 << 5, 0, 0, 0, -1 },
-    { "easyeffects",        NULL,       NULL,       	1 << 5, 0, 0, 0, -1 },
-    { "vlc",                NULL,       NULL,       	1 << 5, 0, 0, 0, -1 },
-    { "Virt-manager",       NULL,       NULL,       	1 << 6, 0, 0, 0, -1 },
-    { "Firefox",            NULL,       NULL,       	1 << 7, 0, 0, 0, -1 },
-    { "firefox",            NULL,       NULL,       	1 << 7, 0, 0, 0, -1 },
-    { "Chromium",           NULL,       NULL,       	1 << 7, 0, 0, 0, -1 },
-    { "ProtonMail Bridge",  NULL,       NULL,       	1 << 8, 0, 0, 0, -1 },
-    //{ "emailclient",        NULL,       NULL,       	1 << 8, 0, 0, 0, -1 },
-    { "thunderbird",        NULL,       NULL,       	1 << 8, 0, 0, 0, -1 },
-    { "Signal",             NULL,       NULL,       	1 << 9, 0, 0, 0, -1 },
-    { "TelegramDesktop",    NULL,       NULL,       	1 << 9, 0, 0, 0, -1 },
+    { "Gimp",               NULL,       NULL,           1 << 4, 0, 0, 0, -1 },
+    { "Virt-manager",       NULL,       NULL,           1 << 6, 0, 0, 0, -1 },
+    { "Firefox",            NULL,       NULL,           1 << 7, 0, 0, 0, -1 },
+    { "firefox",            NULL,       NULL,           1 << 7, 0, 0, 0, -1 },
+    { "Chromium",           NULL,       NULL,           1 << 7, 0, 0, 0, -1 },
+    { "thunderbird",        NULL,       NULL,           1 << 8, 0, 0, 0, -1 },
+    { "Signal",             NULL,       NULL,           1 << 9, 0, 0, 0, -1 },
+    { "TelegramDesktop",    NULL,       NULL,           1 << 9, 0, 0, 0, -1 },
 };
 
 /* layout(s) */
@@ -112,31 +105,31 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
 
 /*
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-    { "background",                 STRING, 	&normbordercolor },
-    { "foreground",                 STRING, 	&selbordercolor },
-    { "background",                 STRING, 	&normbgcolor },
-    { "foreground",                 STRING, 	&normfgcolor },
-    { "foreground",                 STRING, 	&selbgcolor },
-    { "background",                 STRING, 	&selfgcolor },
-    { "borderpx",               INTEGER,        &borderpx },
-    { "snap",                   INTEGER,        &snap },
-    { "showbar",                INTEGER,        &showbar },
-    { "topbar",                 INTEGER,        &topbar },
-    { "nmaster",                INTEGER,        &nmaster },
-    { "resizehints",            INTEGER,        &resizehints },
-    { "mfact",      	        FLOAT,          &mfact },
-    { "gappih",                 INTEGER,        &gappih },
-    { "gappiv",                 INTEGER,        &gappiv },
-    { "gappoh",                 INTEGER,        &gappoh },
-    { "gappov",                 INTEGER,        &gappov },
-    { "swallowfloating",        INTEGER,        &swallowfloating },
-    { "smartgaps",		INTEGER,        &smartgaps },
+    { "background",      STRING,  &normbordercolor },
+    { "foreground",      STRING,  &selbordercolor  },
+    { "background",      STRING,  &normbgcolor     },
+    { "foreground",      STRING,  &normfgcolor     },
+    { "foreground",      STRING,  &selbgcolor      },
+    { "background",      STRING,  &selfgcolor      },
+    { "borderpx",        INTEGER, &borderpx        },
+    { "snap",            INTEGER, &snap            },
+    { "showbar",         INTEGER, &showbar         },
+    { "topbar",          INTEGER, &topbar          },
+    { "nmaster",         INTEGER, &nmaster         },
+    { "resizehints",     INTEGER, &resizehints     },
+    { "mfact",           FLOAT,   &mfact           },
+    { "gappih",          INTEGER, &gappih          },
+    { "gappiv",          INTEGER, &gappiv          },
+    { "gappoh",          INTEGER, &gappoh          },
+    { "gappov",          INTEGER, &gappov          },
+    { "swallowfloating", INTEGER, &swallowfloating },
+    { "smartgaps",       INTEGER, &smartgaps       },
 };
 
 
@@ -170,7 +163,9 @@ static Key keys[] = {
     STACKKEYS(MODKEY,           focus),
     STACKKEYS(MODKEY|ShiftMask, push),
 
+    { MODKEY|ControlMask, XK_h,      setmfact,       {.f = -0.005} },
     { MODKEY,             XK_h,      setmfact,       {.f = -0.05} },
+    { MODKEY|ControlMask, XK_l,      setmfact,       {.f = +0.005} },
     { MODKEY,             XK_l,      setmfact,       {.f = +0.05} },
     //{ MODKEY,             XK_i,      incnmaster,     {.i = +1 } },
     //{ MODKEY,             XK_d,      incnmaster,     {.i = -1 } },
@@ -235,66 +230,71 @@ static Key keys[] = {
       { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },*/
 
     // media
-    { MODKEY,           XK_minus, spawn, SHCMD("pamixer --allow-boost -d 5;  kill -44 $(pidof dwmblocks)") },
-    { MODKEY|ShiftMask,	XK_minus, spawn, SHCMD("pamixer --allow-boost -d 25; kill -44 $(pidof dwmblocks)") },
-    { MODKEY,           XK_equal, spawn, SHCMD("pamixer --allow-boost -i 5;  kill -44 $(pidof dwmblocks)") },
-    { MODKEY|ShiftMask,	XK_equal, spawn, SHCMD("pamixer --allow-boost -i 25; kill -44 $(pidof dwmblocks)") },
+    { 0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks); sb-volume") },
+
+    { MODKEY|ControlMask,   XK_minus, spawn, SHCMD("pamixer -d 1;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY,               XK_minus, spawn, SHCMD("pamixer -d 5;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY|ShiftMask,     XK_minus, spawn, SHCMD("pamixer -d 25; kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY|ControlMask,   XK_equal, spawn, SHCMD("pamixer -i 1;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY,               XK_equal, spawn, SHCMD("pamixer -i 5;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY|ShiftMask,     XK_equal, spawn, SHCMD("pamixer -i 25; kill -44 $(pidof dwmblocks); sb-volume") },
+
+    { ControlMask,  XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 1;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { 0,            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { ShiftMask,    XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 25; kill -44 $(pidof dwmblocks); sb-volume") },
+    { ControlMask,  XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 1;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { 0,            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5;  kill -44 $(pidof dwmblocks); sb-volume") },
+    { ShiftMask,    XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 25; kill -44 $(pidof dwmblocks); sb-volume") },
+
+    { MODKEY,               XK_p,            spawn, SHCMD("playerctl play-pause ; mpc toggle") },
+    { MODKEY|ShiftMask,     XK_p,            spawn, SHCMD("playerctl pause ; mpc pause") },
+    { MODKEY|ControlMask,   XK_bracketleft,  spawn, SHCMD("mpc seek -1") },
+    { MODKEY,               XK_bracketleft,  spawn, SHCMD("mpc seek -5") },
+    { MODKEY|ShiftMask,     XK_bracketleft,  spawn, SHCMD("mpc seek -30") },
+    { MODKEY|ControlMask,   XK_bracketright, spawn, SHCMD("mpc seek +1") },
+    { MODKEY,               XK_bracketright, spawn, SHCMD("mpc seek +5") },
+    { MODKEY|ShiftMask,     XK_bracketright, spawn, SHCMD("mpc seek +30") },
+
+    { 0, XF86XK_AudioPrev,  spawn, SHCMD("playerctl previous ;   mpc prev") },
+    { 0, XF86XK_AudioNext,  spawn, SHCMD("playerctl next ;       mpc next") },
+    { 0, XF86XK_AudioPause, spawn, SHCMD("playerctl pause ;      mpc pause") },
+    { 0, XF86XK_AudioPlay,  spawn, SHCMD("playerctl play-pause ; mpc toggle") },
+    { 0, XF86XK_AudioStop,  spawn, SHCMD("playerctl stop ;       mpc stop") },
 
 
-    { MODKEY,		XK_p,		 spawn,	SHCMD("playerctl play-pause ; mpc toggle") },
-    { MODKEY|ShiftMask, XK_p,		 spawn,	SHCMD("playerctl pause ; mpc pause ; $HOME/.local/bin/pauseallmpv") },
-    { MODKEY,		XK_bracketleft,	 spawn,	SHCMD("mpc seek -5") },
-    { MODKEY|ShiftMask,	XK_bracketleft,	 spawn,	SHCMD("mpc seek -30") },
-    { MODKEY,		XK_bracketright, spawn,	SHCMD("mpc seek +5") },
-    { MODKEY|ShiftMask,	XK_bracketright, spawn,	SHCMD("mpc seek +30") },
-
-
-    { 0, XF86XK_AudioMute,	  spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-    { 0, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-    { 0, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-    { ShiftMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 10; kill -44 $(pidof dwmblocks)") },
-    { ShiftMask, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 10; kill -44 $(pidof dwmblocks)") },
-    { ControlMask, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer --allow-boost -i 1; kill -44 $(pidof dwmblocks)") },
-    { ControlMask, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer --allow-boost -d 1; kill -44 $(pidof dwmblocks)") },
-    { 0, XF86XK_AudioPrev,	  spawn, SHCMD("playerctl previous ; mpc prev") },
-    { 0, XF86XK_AudioNext,	  spawn, SHCMD("playerctl next ; mpc next") },
-    { 0, XF86XK_AudioPause,	  spawn, SHCMD("playerctl pause ; mpc pause") },
-    { 0, XF86XK_AudioPlay,	  spawn, SHCMD("playerctl play-pause ; mpc toggle") },
-    { 0, XF86XK_AudioStop,	  spawn, SHCMD("playerctl stop ; mpc stop") },
-
-
-    { MODKEY, XK_F1, spawn, SHCMD("$HOME/.local/bin/dpass --type") },
-    { MODKEY, XK_F2, spawn, SHCMD("$HOME/.local/bin/dmnt") },
+    { MODKEY,           XK_F1, spawn, SHCMD("$HOME/.local/bin/dpass --type") },
+    { MODKEY,           XK_F2, spawn, SHCMD("$HOME/.local/bin/dmnt") },
     { MODKEY|ShiftMask, XK_F2, spawn, SHCMD("$HOME/.local/bin/dumnt") },
-    { MODKEY, XK_F3, spawn, SHCMD("$HOME/.local/bin/remaps & notify-send \\\"Keyboard remapping...\\\" \\\"Re-running keyboard defaults for any newly plugged-in keyboards.\\\"") },
-    { MODKEY, XK_F5, spawn, SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
-    { MODKEY, XK_F8, spawn, SHCMD("$HOME/.local/bin/displayselect") },
-    { MODKEY, XK_F9, spawn, SHCMD("$HOME/.local/bin/chsink") },
+    { MODKEY,           XK_F3, spawn, SHCMD("$HOME/.local/bin/remaps && notify-send \\\"Keyboard remapping...\\\" \\\"Re-running keyboard defaults for any newly plugged-in keyboards.\\\"") },
+    { MODKEY,           XK_F5, spawn, SHCMD("mpv --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+    { MODKEY,           XK_F8, spawn, SHCMD("$HOME/.local/bin/displayselect") },
+    { MODKEY,           XK_F9, spawn, SHCMD("$HOME/.local/bin/chsink") },
 
 
-    { 0, 	        XK_Print,  spawn, SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send 'Screenshot taken'") },
-    { ShiftMask,        XK_Print,  spawn, SHCMD("$HOME/.local/bin/maimpick") },
-    { MODKEY,	        XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord") },
-    { MODKEY|ShiftMask,	XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord kill") },
-    { MODKEY,		XK_Delete, spawn, SHCMD("$HOME/.local/bin/drecord kill") },
-    { MODKEY,		XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark") },
-    { MODKEY|ControlMask,	XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark add $(xclip -o)") },
+    { 0,                    XK_Print,  spawn, SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send 'Screenshot taken'") },
+    { ShiftMask,            XK_Print,  spawn, SHCMD("$HOME/.local/bin/maimpick") },
+    { MODKEY,               XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord") },
+    { MODKEY|ShiftMask,     XK_Print,  spawn, SHCMD("$HOME/.local/bin/drecord kill") },
+    { MODKEY,               XK_Delete, spawn, SHCMD("$HOME/.local/bin/drecord kill") },
+    { MODKEY,               XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark") },
+    { MODKEY|ControlMask,   XK_Insert, spawn, SHCMD("$HOME/.local/bin/bmark add $(xclip -o)") },
 
 
     // system utilities
-    { MODKEY, XK_s, spawn, SHCMD("$HOME/.local/bin/sysact") },
-    { MODKEY, XK_r, spawn, SHCMD(TERMINAL " -e htop") },
-    { MODKEY, XK_e, spawn, SHCMD(TERMINAL " -c filebrowser -e nnn -deAU") },
-    { MODKEY, XK_w, spawn, SHCMD(TERMINAL " -e nmtui") },
-    { MODKEY, XK_m, spawn, SHCMD("$HOME/.local/bin/emailclient") },
-    { MODKEY, XK_n, spawn, SHCMD(TERMINAL " -c musicplayer -e ncmpcpp") },
-    //{ MODKEY, XK_m, spawn, SHCMD("if [ -z $(pidof mpd) ]; then notify-send 'Starting mpd'; mpd &; fi; st -c musicplayer -e ncmpcpp") },
+    { MODKEY,           XK_s, spawn, SHCMD("$HOME/.local/bin/sysact") },
+    { MODKEY,           XK_r, spawn, SHCMD(TERMINAL " -e htop") },
+    { MODKEY,           XK_e, spawn, SHCMD(TERMINAL " -c filebrowser -e nnn -deAU") },
+    { MODKEY,           XK_w, spawn, SHCMD(TERMINAL " -e nmtui") },
+    { MODKEY,           XK_m, spawn, SHCMD("$HOME/.local/bin/mailclient") },
+    { MODKEY,           XK_n, spawn, SHCMD(TERMINAL " -c musicplayer -e ncmpcpp") },
     { MODKEY|ShiftMask, XK_n, spawn, SHCMD(TERMINAL " -c mixer -e ncpamixer") },
-    { MODKEY, XK_x, spawn, SHCMD("$HOME/.local/bin/dkill") },
+    { MODKEY,           XK_x, spawn, SHCMD("$HOME/.local/bin/dkill") },
 
 
-    { 0, XF86XK_MonBrightnessUp,   spawn, SHCMD("xbacklight -inc 10 ; brightnessctl set 10%+") },
-    { 0, XF86XK_MonBrightnessDown, spawn, SHCMD("xbacklight -dec 10 ; brightnessctl set 10%-") },
+    { ControlMask,  XF86XK_MonBrightnessDown, spawn, SHCMD("xbacklight -dec 1  ; brightnessctl set 1%-") },
+    { 0,            XF86XK_MonBrightnessDown, spawn, SHCMD("xbacklight -dec 10 ; brightnessctl set 10%-") },
+    { ControlMask,  XF86XK_MonBrightnessUp,   spawn, SHCMD("xbacklight -inc 1  ; brightnessctl set 1%+") },
+    { 0,            XF86XK_MonBrightnessUp,   spawn, SHCMD("xbacklight -inc 10 ; brightnessctl set 10%+") },
 };
 
 /* button definitions */
