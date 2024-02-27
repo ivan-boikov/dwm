@@ -99,7 +99,7 @@ static const Layout layouts[] = {
     { NULL,       NULL },
 };
 
-#define STATUSBAR "dwmblocks"
+#define STATUSBAR "slstatus"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -229,21 +229,21 @@ static Key keys[] = {
       { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },*/
 
     // media
-    { 0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks); sb-volume") },
+    { 0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t; sb-volume ; pkill slstatus ; slstatus") },
 
-    { MODKEY|ControlMask,   XK_minus, spawn, SHCMD("pamixer -d 1;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { MODKEY,               XK_minus, spawn, SHCMD("pamixer -d 5;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { MODKEY|ShiftMask,     XK_minus, spawn, SHCMD("pamixer -d 25; kill -44 $(pidof dwmblocks); sb-volume") },
-    { MODKEY|ControlMask,   XK_equal, spawn, SHCMD("pamixer -i 1;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { MODKEY,               XK_equal, spawn, SHCMD("pamixer -i 5;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { MODKEY|ShiftMask,     XK_equal, spawn, SHCMD("pamixer -i 25; kill -44 $(pidof dwmblocks); sb-volume") },
+    { MODKEY|ControlMask,   XK_minus, spawn, SHCMD("pamixer -d 1;  sb-volume ; pkill slstatus ; slstatus") },
+    { MODKEY,               XK_minus, spawn, SHCMD("pamixer -d 5;  sb-volume ; pkill slstatus ; slstatus") },
+    { MODKEY|ShiftMask,     XK_minus, spawn, SHCMD("pamixer -d 25; sb-volume ; pkill slstatus ; slstatus") },
+    { MODKEY|ControlMask,   XK_equal, spawn, SHCMD("pamixer -i 1;  sb-volume ; pkill slstatus ; slstatus") },
+    { MODKEY,               XK_equal, spawn, SHCMD("pamixer -i 5;  sb-volume ; pkill slstatus ; slstatus") },
+    { MODKEY|ShiftMask,     XK_equal, spawn, SHCMD("pamixer -i 25; sb-volume ; pkill slstatus ; slstatus") },
 
-    { ControlMask,  XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 1;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { 0,            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { ShiftMask,    XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 25; kill -44 $(pidof dwmblocks); sb-volume") },
-    { ControlMask,  XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 1;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { 0,            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5;  kill -44 $(pidof dwmblocks); sb-volume") },
-    { ShiftMask,    XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 25; kill -44 $(pidof dwmblocks); sb-volume") },
+    { ControlMask,  XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 1;  sb-volume ; pkill slstatus ; slstatus") },
+    { 0,            XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 5;  sb-volume ; pkill slstatus ; slstatus") },
+    { ShiftMask,    XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 25; sb-volume ; pkill slstatus ; slstatus") },
+    { ControlMask,  XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 1;  sb-volume ; pkill slstatus ; slstatus") },
+    { 0,            XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 5;  sb-volume ; pkill slstatus ; slstatus") },
+    { ShiftMask,    XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 25; sb-volume ; pkill slstatus ; slstatus") },
 
     { MODKEY,               XK_p,            spawn, SHCMD("playerctl play-pause ; mpc toggle") },
     { MODKEY|ShiftMask,     XK_p,            spawn, SHCMD("playerctl pause ; mpc pause") },
