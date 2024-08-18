@@ -19,6 +19,7 @@ apply_patch() {
 
 git switch "patches" || exit
 git reset --hard "patches" -- || exit
+git clean -fd "../"
 
 # branches for individually applied patches
 branches=$(git for-each-ref --format='%(refname:short)' refs/heads/ | grep diff)
