@@ -31,7 +31,7 @@ git branch -D patched
 
 git checkout -b "patched"
 for patchfile in *.diff; do
-	apply_patch "$patchfile" || exit
+	apply_patch "$patchfile" || (git switch "patches" && exit)
 	git switch -q "patched"
 done
 
