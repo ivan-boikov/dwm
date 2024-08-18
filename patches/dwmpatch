@@ -14,7 +14,6 @@ apply_patch() {
 	git add *.c *.h *.mk *.1
 	cd - > /dev/null
 	git commit -m "Applied $1"
-	git switch -q master
 	return 0
 }
 
@@ -29,9 +28,10 @@ done
 # branch for merged patches
 git branch -D patched
 
+git checkout -b "patched"
 for patchfile in *.diff; do
 	apply_patch "$patchfile" || exit
+	git switch -q "patched"
 done
 
-git switch -c "patched" || exit
 echo "Merge patch branches manually now"
