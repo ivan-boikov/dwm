@@ -34,9 +34,9 @@ index a9ac303..e559429 100644
  	TAGKEYS(                        XK_8,                      7)
  	TAGKEYS(                        XK_9,                      8)
  	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
++	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
  };
- 
+
  /* button definitions */
 diff --git a/dwm.1 b/dwm.1
 index 13b3729..36a331c 100644
@@ -70,15 +70,10 @@ diff --git a/dwm.c b/dwm.c
 index bb95e26..286eecd 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -205,6 +205,8 @@ static void setup(void);
- static void seturgent(Client *c, int urg);
- static void showhide(Client *c);
- static void sigchld(int unused);
+@@ -205,1 +205,3 @@ static void showhide(Client *c);
 +static void sighup(int unused);
 +static void sigterm(int unused);
  static void spawn(const Arg *arg);
- static void tag(const Arg *arg);
- static void tagmon(const Arg *arg);
 @@ -260,6 +262,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
  	[UnmapNotify] = unmapnotify
  };
@@ -94,11 +89,11 @@ index bb95e26..286eecd 100644
 +	if(arg->i) restart = 1;
  	running = 0;
  }
- 
+
 @@ -1536,6 +1540,9 @@ setup(void)
  	/* clean up any zombies immediately */
  	sigchld(0);
- 
+
 +	signal(SIGHUP, sighup);
 +	signal(SIGTERM, sigterm);
 +
@@ -107,7 +102,7 @@ index bb95e26..286eecd 100644
  	sw = DisplayWidth(dpy, screen);
 @@ -1637,6 +1644,20 @@ sigchld(int unused)
  }
- 
+
  void
 +sighup(int unused)
 +{
@@ -134,6 +129,5 @@ index bb95e26..286eecd 100644
  	cleanup();
  	XCloseDisplay(dpy);
  	return EXIT_SUCCESS;
--- 
+--
 2.7.4
-
