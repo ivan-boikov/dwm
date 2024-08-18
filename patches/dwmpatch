@@ -26,10 +26,9 @@ branches=$(git for-each-ref --format='%(refname:short)' refs/heads/ | grep diff)
 for branch in $branches; do
 	git branch -D $branch || exit
 done
-# branch for merged patches
-git branch -D patched
 
-git checkout -b "patched"
+git checkout -b "patched" || git switch "patched"
+git status
 for patchfile in *.diff; do
 	apply_patch "$patchfile" || (git switch "patches" && exit)
 	git switch -q "patched"
