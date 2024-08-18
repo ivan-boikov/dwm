@@ -1,0 +1,37 @@
+#!/bin/sh
+
+patch_name_from_fname() {
+	echo $1 | cut -d- -f2
+}
+
+apply_patch() {
+	branch="$1"
+	echo ""
+	git checkout -b $branch
+	cd .. > /dev/null
+	patch -p1 < patches/$1 || exit 1
+	# git apply --reject patches/$1 || exit 1
+	git add *.c *.h *.mk *.1
+	cd - > /dev/null
+	git commit -m "Applied $1"
+	git switch -q master
+	return 0
+}
+
+git switch "patches" || exit
+git reset --hard || exit
+
+# branches for individually applied patches
+branches=$(git for-each-ref --format='%(refname:short)' refs/heads/ | grep diff)
+for branch in $branches; do
+	git branch -D $branch || exit
+done
+# branch for merged patches
+git branch -D patched
+
+for patchfile in *.diff; do
+	apply_patch "$patchfile" || exit
+done
+
+git switch -c "patched" || exit
+echo "Merge patch branches manually now"
