@@ -35,7 +35,7 @@ index 1c0b587..a886863 100644
 @@ -36,11 +41,26 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95]
  static const int nmaster     = 1;    /* number of clients in master area */
  static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
- 
+
 +#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 +#include "vanitygaps.c"
 +
@@ -58,7 +58,7 @@ index 1c0b587..a886863 100644
 +	{ "><>",      NULL },    /* no layout function means floating behavior */
 +	{ NULL,       NULL },
  };
- 
+
  /* key definitions */
 @@ -71,6 +91,22 @@ static Key keys[] = {
  	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -98,14 +98,10 @@ index 4465af1..c3b2d82 100644
  	unsigned int seltags;
  	unsigned int sellt;
  	unsigned int tagset[2];
-@@ -208,7 +212,6 @@ static void sigchld(int unused);
- static void spawn(const Arg *arg);
- static void tag(const Arg *arg);
+@@ -208,3 +212,2 @@ static void tag(const Arg *arg);
  static void tagmon(const Arg *arg);
--static void tile(Monitor *);
+-static void tile(Monitor *m);
  static void togglebar(const Arg *arg);
- static void togglefloating(const Arg *arg);
- static void toggletag(const Arg *arg);
 @@ -638,6 +641,10 @@ createmon(void)
  	m->nmaster = nmaster;
  	m->showbar = showbar;
@@ -117,10 +113,10 @@ index 4465af1..c3b2d82 100644
  	m->lt[0] = &layouts[0];
  	m->lt[1] = &layouts[1 % LENGTH(layouts)];
  	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
-@@ -1670,32 +1677,6 @@ tagmon(const Arg *arg)
+@@ -1670,34 +1677,6 @@ tagmon(const Arg *arg)
  	sendmon(selmon->sel, dirtomon(arg->i));
  }
- 
+
 -void
 -tile(Monitor *m)
 -{
@@ -139,11 +135,13 @@ index 4465af1..c3b2d82 100644
 -		if (i < m->nmaster) {
 -			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
 -			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
--			my += HEIGHT(c);
+-			if (my + HEIGHT(c) < m->wh)
+-				my += HEIGHT(c);
 -		} else {
 -			h = (m->wh - ty) / (n - i);
 -			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
--			ty += HEIGHT(c);
+-			if (ty + HEIGHT(c) < m->wh)
+-				ty += HEIGHT(c);
 -		}
 -}
 -
@@ -966,6 +964,5 @@ index 0000000..3f31593
 +		}
 +}
 \ No newline at end of file
--- 
+--
 2.19.1
-
