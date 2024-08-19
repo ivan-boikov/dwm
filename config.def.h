@@ -159,7 +159,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_r,                     spawn, SHCMD("st" " -e htop") },
 	{ MODKEY,                       XK_e,                     spawn, SHCMD("st" " -c filebrowser -e nnn -deAU") },
 	{ MODKEY,                       XK_w,                     spawn, SHCMD("st" " -e nmtui") },
-	{ MODKEY,                       XK_n,                     spawn, SHCMD("st" " -c musicplayer -e $HOME/.local/bin/musicplayer") },
+	{ MODKEY,                       XK_n,                     spawn, SHCMD("$HOME/.local/bin/musicplayer") },
 	{ MODKEY,                       XK_m,                     spawn, SHCMD("$HOME/.local/bin/mailclient") },
 	{ MODKEY,                       XK_F1,                    spawn, SHCMD("$HOME/.local/bin/dpass --type") },
 	{ 0,                            XK_Print,                 spawn, SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png && notify-send 'Screenshot taken'") },
