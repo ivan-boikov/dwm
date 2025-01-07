@@ -1198,9 +1198,9 @@ loadxrdb()
 			if (xrdb != NULL) {
 				XRDB_LOAD_COLOR("background", normbordercolor);
 				XRDB_LOAD_COLOR("background", normbgcolor);
-				XRDB_LOAD_COLOR("foreground", normfgcolor);
-				XRDB_LOAD_COLOR("foreground", selbordercolor);
-				XRDB_LOAD_COLOR("foreground", selbgcolor);
+				XRDB_LOAD_COLOR("accent", normfgcolor);
+				XRDB_LOAD_COLOR("accent", selbordercolor);
+				XRDB_LOAD_COLOR("accent", selbgcolor);
 				XRDB_LOAD_COLOR("background", selfgcolor);
 			}
 		}
